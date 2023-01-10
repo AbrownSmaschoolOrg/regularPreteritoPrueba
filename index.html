@@ -108,18 +108,11 @@ document.getElementById("correctAnswer").innerHTML = answer;
 if(isCorrect)
 {
  document.getElementById("correctOrIncorrect").innerHTML = "Muy bien!";
- //document.getElementById("tester").innerHTML = trial(); 
- //document.getElementById("tester").innerHTML = inputFromTextbox;
- document.getElementById("tester").innerHTML = convertAccent(inputFromTextBox);
  numCorrect++;
  }
  else
  {
  document.getElementById("correctOrIncorrect").innerHTML = "Pues, no...!";
-  //document.getElementById("tester").innerHTML = trial(); 
- //document.getElementById("tester").innerHTML = inputFromTextbox;
- document.getElementById("tester").innerHTML = convertAccent(inputFromTextBox);
- //document.getElementById("tester").innerHTML = "by";
  numIncorrect++;
  }
  document.getElementById("correctAndIncorrectCount").innerHTML = numCorrect + "/" + (numCorrect + numIncorrect);
