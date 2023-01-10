@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h3>Práctica con los verbos REGULARES en el pretérito</h3>
+
+<p class="question-container" id="randomVerb">Verbo</p>
+<p class="question-container" id="randomPerson">Persona</p>
+
+<button class="insertAccentLetter" id="insertA" onclick="insert('á')">á</button>
+
+<button class="insertAccentLetter" id="insertA" onclick="insert('é')">é</button>
+<button class="insertAccentLetter" id="insertA" onclick="insert('í')">í</button>
+<button class="insertAccentLetter" id="insertA" onclick="insert('ó')">ó</button>
+<button class="insertAccentLetter" id="insertA" onclick="insert('ú')">ú</button>
+<p></p>
+<input type="text" id="answerTextBox" value="">
+
+<p></p>
+<button class="option" id="startButton" onclick="start()">Start</button>
+<p></p>
+<button class="option" id="checkButton" onclick="checkAnswer()" disabled = true>Submit</button>
+<button class="option" id="nextButton" onclick="nextQuestion()" disabled = true>Next</button>
+<p class="label-container" >Respuesta correcta:</p>
+<p class="answer-container" id="correctAnswer"></p>
+<p class="label-container" >Sí/No:</p>
+<p class="answer-container" id="correctOrIncorrect"></p>
+<p class="label-container" >Total:</p>
+<p class="answer-container" id="correctAndIncorrectCount"></p>
+<p id="tester">hey</p>
+
+
+<script>
+
+function insert(letter) {
+	var inputValue = document.getElementById("answerTextBox").value;
+	document.getElementById("answerTextBox").value = inputValue+ letter;
+
+}
+var numCorrect = 0;
+var numIncorrect = 0;
+var questionAnswerUsed;
+function start() {
+document.getElementById("checkButton").disabled= false;
+document.getElementById("nextButton").disabled= false;
+document.getElementById("startButton").disabled= true;
+nextQuestion();
+}
+function nextQuestion() {
+questionAnswerUsed = getValues();
+   document.getElementById("randomVerb").innerHTML = questionAnswerUsed.verb;
+   document.getElementById("randomPerson").innerHTML = questionAnswerUsed.question;
+}
+
+var input = document.getElementById("answerTextBox");
+var flipFlop = true;
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   if(flipFlop)
+   {
+   document.getElementById("checkButton").click();
+   flipFlop= !flipFlop;
+   }
+   else
+   {
+   document.getElementById("nextButton").click();
+      flipFlop= !flipFlop;
+	  document.getElementById("answerTextBox").value = "";
+	   document.getElementById("correctOrIncorrect").innerHTML = "";
+	   document.getElementById("correctAnswer").innerHTML = ""; 
+   }
+  }
+});
+
+
+function convertAccent(word)
+{
+	return "fun";
+var ans = word.replace(/a'/g,"á");
+	ans = ans.replace(/e'/g,"é");
+	ans = ans.replace(/i'/g,"í");
+	ans = ans.replace(/o'/g,"ó");
+	ans = ans.replace(/u'/g,"ú");
+	return ans;
+	
+}
+function trial()
+{
+ return "fun";
+}
+
+function checkAnswer() {
+
+
+   var answer = questionAnswerUsed.answer;
+   
+  var inputFromTextbox = document.getElementById("answerTextBox").value + "";
+  var isCorrect = inputFromTextbox == answer;// || convertAccent(inputFromTextBox) == answer;
+   	
+document.getElementById("correctAnswer").innerHTML = answer; 
+if(isCorrect)
+{
+ document.getElementById("correctOrIncorrect").innerHTML = "Muy bien!";
+ //document.getElementById("tester").innerHTML = trial(); 
+ //document.getElementById("tester").innerHTML = inputFromTextbox;
+ document.getElementById("tester").innerHTML = convertAccent(inputFromTextBox);
+ numCorrect++;
+ }
+ else
+ {
+ document.getElementById("correctOrIncorrect").innerHTML = "Pues, no...!";
+  //document.getElementById("tester").innerHTML = trial(); 
+ //document.getElementById("tester").innerHTML = inputFromTextbox;
+ document.getElementById("tester").innerHTML = convertAccent(inputFromTextBox);
+ //document.getElementById("tester").innerHTML = "by";
+ numIncorrect++;
+ }
+ document.getElementById("correctAndIncorrectCount").innerHTML = numCorrect + "/" + (numCorrect + numIncorrect);
+}
+
+function getValues() {
+//REGULARES
+var randomNumberRow = Math.floor(Math.random() * 33);
+
+var randomNumberColumn = Math.floor(Math.random() * 7)+1;
+var answersArray = [	[	"verbo",	"stem",	"yo",	"tú",	"él/ella/ usted",	"nostros/nostras",	"vosotros/vosotros",	"ellos/ellas/  ustedes"	],	
+	[	"hablar",	"habl",	"hablé",	"hablaste",	"habló",	"hablamos",	"hablasteis",	"hablaron"	],	
+	[	"caminar",	"camin",	"caminé",	"caminaste",	"caminó",	"caminamos",	"caminasteis",	"caminaron"	],	
+	[	"cenar",	"cen",	"cené",	"cenaste",	"cenó",	"cenamos",	"cenasteis",	"cenaron"	],	
+	[	"comprar",	"compr",	"compré",	"compraste",	"compró",	"compramos",	"comprasteis",	"compraron"	],	
+	[	"contestar",	"contest",	"contesté",	"contestaste",	"contestó",	"contestamos",	"contestasteis",	"contestaron"	],	
+	[	"conversar",	"convers",	"conversé",	"conversaste",	"conversó",	"conversamos",	"conversasteis",	"conversaron"	],	
+	[	"escuchar",	"escuch",	"escuché",	"escuchaste",	"escuchó",	"escuchamos",	"escuchasteis",	"escucharon"	],	
+	[	"esperar",	"esper",	"esperé",	"esperaste",	"esperó",	"esperamos",	"esperasteis",	"esperaron"	],	
+	[	"estudiar",	"estudi",	"estudié",	"estudiaste",	"estudió",	"estudiamos",	"estudiasteis",	"estudiaron"	],	
+	[	"llevar",	"llev",	"llevé",	"llevaste",	"llevó",	"llevamos",	"llevasteis",	"llevaron"	],	
+	[	"necesitar",	"necesit",	"necesité",	"necesitaste",	"necesitó",	"necesitamos",	"necesitasteis",	"necesitaron"	],	
+	[	"preguntar",	"pregunt",	"pregunté",	"preguntaste",	"preguntó",	"preguntamos",	"preguntasteis",	"preguntaron"	],	
+	[	"preparar",	"prepar",	"preparé",	"preparaste",	"preparó",	"preparamos",	"preparasteis",	"prepararon"	],	
+	[	"regresar",	"regres",	"regresé",	"regresaste",	"regresó",	"regresamos",	"regresasteis",	"regresaron"	],	
+	[	"terminar",	"termin",	"terminé",	"terminaste",	"terminó",	"terminamos",	"terminasteis",	"terminaron"	],	
+	[	"tomar",	"tom",	"tomé",	"tomaste",	"tomó",	"tomamos",	"tomasteis",	"tomaron"	],	
+	[	"trabajar",	"trabaj",	"trabajé",	"trabajaste",	"trabajó",	"trabajamos",	"trabajasteis",	"trabajaron"	],	
+	[	"viajar",	"viaj",	"viajé",	"viajaste",	"viajó",	"viajamos",	"viajasteis",	"viajaron"	],	
+											
+	[	"vivir",	"viv",	"viví",	"viviste",	"vivió",	"vivimos",	"vivisteis",	"vivieron"	],	
+	[	"beber",	"beb",	"bebí",	"bebiste",	"bebió",	"bebimos",	"bebisteis",	"bebieron"	],	
+	[	"comer",	"com",	"comí",	"comiste",	"comió",	"comimos",	"comisteis",	"comieron"	],	
+	[	"escribir",	"escrib",	"escribí",	"escribiste",	"escribió",	"escribimos",	"escribisteis",	"escribieron"	],	
+	[	"aprender",	"aprend",	"aprendí",	"aprendiste",	"aprendió",	"aprendimos",	"aprendisteis",	"aprendieron"	],	
+	[	"comprender",	"comprend",	"comprendí",	"comprendiste",	"comprendió",	"comprendimos",	"comprendisteis",	"comprendieron"	],	
+	[	"correr",	"corr",	"corrí",	"corriste",	"corrió",	"corrimos",	"corristeis",	"corrieron"	],	
+	[	"deber",	"deb",	"debí",	"debiste",	"debió",	"debimos",	"debisteis",	"debieron"	],	
+	[	"abrir",	"abr",	"abrí",	"abriste",	"abrió",	"abrimos",	"abristeis",	"abrieron"	],	
+	[	"asistir",	"asist",	"asistí",	"asististe",	"asistió",	"asistimos",	"asististeis",	"asistieron"	],	
+	[	"compartir",	"compart",	"compartí",	"compartiste",	"compartió",	"compartimos",	"compartisteis",	"compartieron"	],	
+	[	"decidir",	"decid",	"decidí",	"decidiste",	"decidió",	"decidimos",	"decidisteis",	"decidieron"	],	
+	[	"describir",	"describ",	"describí",	"describiste",	"describió",	"describimos",	"describisteis",	"describieron"	],	
+	[	"recibir",	"recib",	"recibí",	"recibiste",	"recibió",	"recibimos",	"recibisteis",	"recibieron"	]	];
+
+
+
+
+
+
+	//return answersArray[0][0];
+	//const questionAnswer = {question: answersArray[1][1], verb: answersArray[2][2], answer:  answersArray[3][3]};
+	//return questionAnswer;
+
+	const questionAnswer = {question: answersArray[0][randomNumberColumn], verb: answersArray[randomNumberRow][0], answer:  answersArray[randomNumberRow][randomNumberColumn]};
+	return questionAnswer;
+	//return  randomNumberRow;
+}
+</script>
+
+
+</body>
+</html>
