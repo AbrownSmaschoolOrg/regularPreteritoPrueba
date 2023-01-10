@@ -41,7 +41,7 @@
 function insert(letter) {
 	var inputValue = document.getElementById("answerTextBox").value;
 	document.getElementById("answerTextBox").value = inputValue+ letter;
-
+	document.getElementById("answerTextBox").focus();
 }
 var numCorrect = 0;
 var numIncorrect = 0;
